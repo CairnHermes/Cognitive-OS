@@ -1,0 +1,60 @@
+We need answer user's request in English. Need propose concrete technical AGI architecture covering many sections. Need be specific, not philosophical. Need include original non-obvious insight. We need think deeply. Need produce final with architecture. Need likely define components, data structures, algorithms, interfaces, runtime, safety, evals, feasibility. Need concrete but not overclaim. Need maybe propose "Recursive World-Model Compiler" or "Causal State Machine + differentiable memory". Need cover memory architecture, reasoning/planning loop, learning/self-improvement, tool use/action execution, world-model/representation layer, safety/governance, evaluation/benchmark, persistence/runtime, multi-agent/orchestration, engineering feasibility, original insight.
+
+Need be careful: AGI architecture, not just LLM. Could propose hybrid: foundation model as policy prior, explicit symbolic/causal world model, episodic memory as vector+graph, planning via MCTS/LLM search, learning via RL + self-generated tasks + meta-learning, tool use via typed API sandbox, safety via formal policy engine, evals via capability matrix, persistence via event sourcing, multi-agent via contract net. Need concrete: modules, data schemas, algorithms, metrics.
+
+Original non-obvious insight: maybe "separate competence from authority: the system's ability to propose actions is decoupled from its ability to execute them via a capability ledger and proof-of-impact; self-improvement is constrained by a 'conservation of verifiable competence' where every learned skill must be paired with a regression test and rollback transaction." Or "memory as a differentiable causal graph with versioned facts, not embeddings; embeddings are projections, not storage." Or "the bottleneck is not intelligence but auditability: build AGI as a compiler from goals to executable plans with formal side-effect budgets." Need original non-obvious: maybe "treat the world model as a compiler target: all reasoning compiles to a typed effect system; safety is enforced by type checking effects, not by post-hoc monitoring." That's strong. Need include.
+
+Need propose architecture name: "Effect-Typed Recursive Planner (ETRP)" or "Causal Effect Compiler (CEC)". Let's design.
+
+Core idea: AGI as a runtime that maintains a versioned causal world model (typed entities, relations, processes, invariants), a memory store (episodic, semantic, procedural), a planner that compiles goals into effect-typed plans, an executor with sandboxed tools, a learning loop that extracts reusable skills and updates world model, and a governance layer that enforces effect budgets and permissions. The LLM is a probabilistic prior/proposer, not the system of record.
+
+Need concrete: data structures:
+- Entity: id, type, attributes, provenance, confidence, timestamp, version.
+- Relation: subject, predicate, object, confidence, evidence, validity interval.
+- Process: function signature, preconditions, effects, cost, risk, executable tool mapping.
+- Episode: context, observations, actions, outcomes, rewards, causal trace.
+- Skill: name, parameters, preconditions, postconditions, implementation (code/tool sequence), tests, version.
+- Goal: typed objective, constraints, deadline, budget, risk.
+- Plan: DAG of steps, each step has preconditions, effects, tool call, rollback, monitor.
+- Effect: typed (read, write, spend, send, delete, train, deploy), resource, amount, reversibility, blast radius.
+- Policy: rules, budgets, approvals, kill switches.
+
+Memory architecture:
+- Hot: KV cache, working set, current plan state.
+- Warm: vector index over episodes/facts with metadata; graph DB (Neo4j/Postgres+Apache AGE) for causal graph; feature store.
+- Cold: object storage (S3) for raw traces, model checkpoints, skill packages.
+- Memory operations: write with provenance, dedupe, conflict resolution via evidence scoring, decay/consolidation, retrieval by semantic + causal relevance.
+- Use "memory as event log + materialized views". Facts are events; current state is projection. Versioned.
+
+Reasoning/planning loop:
+- Goal decomposition: LLM proposes subgoals; validator checks typed preconditions/effects.
+- World model query: retrieve relevant entities/processes; build local causal subgraph.
+- Planning: MCTS/beam search over action DAG; each action has predicted effects and uncertainty; cost = expected utility - risk penalty - budget. Use LLM as heuristic value function; use simulator for high-risk.
+- Plan compilation: to typed effect plan; check against policy; if fails, request approval or modify.
+- Execution: step-by-step with observation, update world model, replan if divergence.
+- Reflection: after episode, generate causal explanation, extract lessons.
+
+Learning/self-improvement:
+- Online: update world model from observations; update skill library; fine-tune proposer on successful plans with preference data; RL from verifiable rewards.
+- Self-generated tasks: from world model gaps, create synthetic tasks with known solutions; curriculum.
+- Meta-learning: learn retrieval/planning heuristics; skill composition.
+- Safety: all self-modifications go through PR-like pipeline: propose code/skill, tests, sandbox, canary, rollback. No direct weight updates in production without eval gate.
+- Use "skill packages" as code + tests + effect annotations.
+
+Tool use/action execution:
+- Tool registry: typed schemas, capabilities, side-effect classes, cost, latency, reliability, auth scopes.
+- Executor: sandbox (gVisor/Firecracker), network egress allowlist, secrets vault, rate limits, idempotency keys, transactional where possible.
+- Action protocol: precheck, execute, observe, verify postconditions, rollback.
+- Human-in-loop for high-risk effects.
+
+World-model/representation layer:
+- Hybrid: parametric LLM prior + explicit causal graph + learned dynamics models (small neural nets for specific domains).
+- Representation: typed entities, relations, processes, invariants; probabilistic confidence; temporal intervals; counterfactuals.
+- Update: Bayesian evidence accumulation; conflict resolution; causal discovery from traces; simulation.
+- Use "effect types" as first-class.
+
+Safety/governance:
+- Effect-typed policy engine: every plan has effect budget; type checker rejects unsafe effects.
+- Capability ledger: grants, revokes, scopes; least privilege.
+- Monitoring: runtime monitors, anomaly detection, kill switch, pause, audit log.
+- Alignment: goal specification with constraints; value learning from explicit preferences; red-team evals; adversarial robustness.

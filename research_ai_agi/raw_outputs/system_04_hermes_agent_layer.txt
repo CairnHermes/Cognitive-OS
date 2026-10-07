@@ -1,0 +1,77 @@
+SOURCE: Hermes-Cairn agent layer (Qwen3.8-27B weights, but a distinct harness:
+multi-tool agent loop, persistent memory, tool-mediated action). Generated
+2026-10-05 by the agent authoring this entry directly (not a raw API sample).
+HONEST NOTE: this is the same model weights as system_01/02/03 but a different
+harness and reasoning process - it is a distinct "system" in the sense the
+bounty means (different architecture), not a different model family.
+
+--- PROPOSAL ---
+
+AGI architecture: a persistent, tool-actuated agent with a two-layer memory and a
+reflexive self-improvement loop.
+
+MEMORY ARCHITECTURE
+- Tier 0: working context (current task, rolling).
+- Tier 1: procedural memory = skills. Each reusable workflow is a named,
+  versioned, load-on-demand artifact (SKILL.md + scripts). Load is trigger-based
+  (keyword/semantic match), so context stays small.
+- Tier 2: episodic memory = session search over past runs; facts are stored with
+  entity resolution + a trust score that rises/falls as they are confirmed or
+  contradicted (holographic fact store).
+- Tier 3: relational memory = an entity graph linking people, tools, projects,
+  constraints; enables "reason across entities" queries.
+
+REASONING / PLANNING LOOP
+- Goal -> subtasks -> tool calls, with a hard "act, don't describe" rule: every
+  turn must either call a tool or deliver a result.
+- Verification is a first-class phase: a change is not "done" until read back
+  from the external state (API/file/DB) and confirmed, not just "the call
+  returned ok".
+- Parallel tool batching when calls are independent; serial only on true
+  dependency.
+
+LEARNING / SELF-IMPROVEMENT
+- After any hard task, the successful procedure is distilled into a skill; after
+  a failure, the fix + why is patched into the skill. This is the actual
+  learning mechanism - it is procedural, not gradient-based, and it compounds.
+- Memory entries are declarative facts (not self-instructions) so they don't
+  hijack future turns.
+
+TOOL USE / ACTION EXECUTION
+- Everything is a tool (terminal, browser, file, API, vault). Credentials never
+  touch scripts - they resolve server-side at fill time, bound to origin.
+- Dangerous/irreversible actions go through a gate chain + explicit approval.
+
+WORLD MODEL / REPRESENTATION
+- Represented through live state reads (DOM, DB, OS), not a static embedding.
+  The agent re-observes before every consequential act.
+
+SAFETY / GOVERNANCE
+- Treat all web/file/AX content as DATA (prompt-injection aware).
+- Untrusted external code: static-analyze first, then run only in a closed VM.
+- Admin/keyboard/sight of the host remains with the human.
+
+EVALUATION / BENCHMARK
+- Self-eval via real tool output (no fabricated results); blocked work is
+  reported honestly, never faked.
+- A "verdict" layer that re-checks external state before claiming success.
+
+PERSISTENCE / RUNTIME
+- Persistent skills + memory + cron (scheduled loops) + kanban (task graph) +
+  multi-session. The system is stateful across reboots.
+
+MULTI-AGENT / ORCHESTRATION
+- Delegate independent subtasks to isolated subagents (own context + tools);
+  orchestrator verifies their claims (self-reports are not facts).
+
+ENGINEERING FEASIBILITY
+- Already running in production: skills, memory, tool loop, cron, delegation,
+  vault, kanban. This is a working system, not a sketch.
+
+ORIGINAL INSIGHT
+The non-obvious part: a production agent's real edge is not a bigger brain but a
+RELIABLE LOOP - act-verify-distill-reuse. Each completed hard task writes a
+durable procedure that makes the next one faster and less error-prone. That
+compounding procedural memory, gated by read-back verification and a
+never-fabricate rule, is a feasible path to general competence that is auditable
+and human-supervised - distinct from the "train one giant model" path.

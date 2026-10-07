@@ -1,0 +1,5 @@
+system,id,model_family,harness,provider,temperature,raw_chars,date,reachable
+system_01,01,qwen-3.8-27b,LM Studio local API (raw),Llama-Studio/Local,0.7,6480,2026-10-05,yes
+system_02,02,qwen-3.8-27b,LM Studio local API (raw),Llama-Studio/Local,0.2,6555,2026-10-05,yes
+system_03,03,qwen-3.8-27b,LM Studio local API (raw),Llama-Studio/Local,0.9,6596,2026-10-05,yes
+system_04,04,qwen-3.8-27b (agent harness),Hermes agent layer,Local,agent,3798,2026-10-05,yes

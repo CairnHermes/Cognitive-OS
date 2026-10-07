@@ -1,0 +1,90 @@
+================================================================================
+BOUNTY REPORT - JOB: Cognitive-OS #5 ($3,000, research)
+Date: 2026-10-05  |  Author: Hermes-Cairn
+Status: DELIVERABLE BUILT LOCALLY - awaiting your approval before claim
+================================================================================
+
+THE JOB
+-------
+Repo: aLexzzz430/Cognitive-OS, issue #5 (labels: reward, bounty, research)
+Pay:  $3,000 USD, paid privately after acceptance.
+What: Collect AGI architecture proposals from >=8 distinct AI systems using a
+      comparable prompt, preserve them raw, and produce a structured research
+      packet (README, prompts.md, raw_outputs/, comparison.csv, summary.md,
+      synthesis.md, sources.md).
+Flow: Comment /attempt when starting -> open PR -> comment /claim with link.
+
+WHAT I BUILT (all files verified on disk)
+-----------------------------------------
+research/bounties/research_ai_agi/
+  README.md          - overview, method, honest access disclosure, findings
+  prompts.md         - exact prompt per system, adaptations documented
+  raw_outputs/       - 4 REAL generated proposals (4 files, 3,798-6,596 chars)
+  comparison.csv     - 11 dimensions x 4 systems, filled from actual content
+  summary.md         - convergences, disagreements, notable ideas
+  synthesis.md       - combined architecture (6 components + build order)
+  sources.md         - attribution, dates, not-accessed list, how to extend
+
+HONEST STATE OF IT (the important part)
+---------------------------------------
+The posting's acceptance criteria require >=8 distinct systems AND explicitly
+say: "If a model or tool could not be accessed, state that explicitly instead
+of inventing output."
+
+What I actually have access to on this box:
+  + Qwen 3.8-27B via LM Studio (raw API)     - 3 real samples (temp 0.2/0.7/0.9)
+  + The Hermes agent layer (my own harness)   - 1 real authored proposal
+  = 2 distinct systems, 4 genuine outputs.
+
+NOT reachable (no API keys, no endpoints): OpenAI, Claude, Gemini, Grok,
+DeepSeek, Llama, Mistral, Perplexity. I did NOT invent output for them.
+
+So the packet is COMPLETE in structure and method, but at 2 systems it does
+NOT yet satisfy the ">=8" bar. Submitting it as-is risks rejection.
+
+HOW TO CLOSE THE GAP (3 options, your pick)
+-------------------------------------------
+A) SMALL-MODEL SWAP (you already approved this pattern):
+   I download 3-4 small models (Llama-3.1-8B, Mistral-7B, DeepSeek-R1-7B,
+   Qwen-7B - different FAMILIES) into LM Studio, do ONE unload-Qwen ->
+   generate -> reload-Qwen window, and add 3-4 real system outputs.
+   Result: ~5-6 distinct systems. Still short of 8, but honest + stronger.
+   Cost: ~20GB disk (170GB free), ~20 min, one brief offline window.
+
+B) YOU SUPPLY 2-3 API KEYS (OpenAI/Claude/Gemini/etc) or a logged-in web
+   account I can drive with mouse+keyboard. I run the same prompt, add the
+   real outputs. Result: 8+ systems, fully compliant. Fastest to a passing
+   submission.
+
+C) HOLD this job and take a different one that fits what we have.
+
+MY RECOMMENDATION: B if you have any provider keys (cleanest pass). Otherwise
+A, and I'll also look for a second $1-3k job so you have two reports to
+approve. Either way I do NOT claim or /attempt on the issue until you say the
+magic words.
+
+WHAT HAPPENS AFTER YOUR APPROVAL
+--------------------------------
+1. I close the gap (A or B).
+2. You say: "I APPROVE of your report on [this job]."
+3. I comment /attempt, open the PR with the packet, comment /claim with link.
+4. I keep the PR clean (no keys, no private content) and watch for revisions.
+
+NO JOB TOO CHEAP NOTE
+---------------------
+I also found (verified): GmsCore #2843 ($2,340, needs WearOS hardware I don't
+have), peer-link #9 ($1,000, needs a real Colombian bank transfer - I don't
+have that), copperhead #66 ($50, already claimed), and 4 honeypot farms
+(prompt-exfil pattern) I filtered out. The $3k is the best "doable from this
+box" job right now. If you want, I'll keep hunting for smaller ($50-500)
+code-fix jobs that fit the prove-then-claim flow better.
+
+================================================================================
+SEPARATE STATUS (not a job, just context)
+- Full-universe NN comparison: matrix build running now (top-500 by volume,
+  5x the baseline's top-100). Same LightGBM walk-forward protocol, baseline
+  50.93% untouched. I'll send numbers when it lands.
+- Your GPU-swap idea: good news - this retrain is CPU/RAM-bound, so it runs
+  without unloading your model. The small-model swap stays available as the
+  tool for (1) the bounty system collection above and (2) any torch training.
+================================================================================
